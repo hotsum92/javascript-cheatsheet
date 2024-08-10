@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Math</title>
+  </head>
+  <body>
+    <h1>Math</h1>
+    <script>
+
+x = 1
+y = -1
+z = 0
+
+Math.pow(2,53)          // => 9007199254740992: 2 の 53 乗
+Math.round(.6)          // => 1.0: 最近傍の整数に変換
+Math.ceil(.6)           // => 1.0: 整数に切り上げ
+Math.floor(.6)          // => 0.0: 整数に切り捨て
+Math.abs(-5)            // => 5: 絶対値
+Math.max(x,y,z)         // 引数の中から最大値を返す
+Math.min(x,y,z)         // 引数の中から最小値を返す
+Math.random()           // 0 以上 1.0 未満の擬似乱数を返す
+Math.PI                 // π : 円周率
+Math.E                  // e: 自然対数の底
+Math.sqrt(3)            // => 3**0.5: 3 の平方根
+Math.pow(3, 1/3)        // => 3**(1/3): 3 の立方根
+Math.sin(0)             // 三角関数 Math.cos や Math.atan なども
+Math.log(10)            // 10 の自然対数
+Math.log(100)/Math.LN10 // 底が 10 の 100 の対数（ 100 の常用対数）
+Math.log(512)/Math.LN2  // 底が 2 の 512 の対数
+Math.exp(3)             // Math.E の 3 乗
+
+Math.cbrt(27)    // => 3: 立方根
+Math.hypot(3, 4) // => 5: 引数を自乗したものの総和の平方根
+Math.log10(100)  // => 2: 常用対数
+Math.log2(1024)  // => 10: 底が 2 の対数
+Math.log1p(x)    // (1+x) の自然対数 x が小さい値の場合、こちらが正確
+Math.expm1(x)    // Math.exp(x)-1; Math.log1p() の逆関数
+Math.sign(x)     // 引数が 0 より小さい、 0 、 0 より大きいで、 -1 、 0 、 1 を返す
+Math.imul(2,3)   // => 6: 32 ビット整数の高速乗算
+Math.clz32(0xf)  // => 28: 32 ビットバイナリ表現での先頭の 0 の数
+Math.trunc(3.9)  // => 3: 小数部を削除して整数に変換する
+Math.fround(x)   // 最近傍の 32 ビット浮動小数点を返す
+Math.sinh(x)     // 双曲線正弦関数 Math.cosh() 、 Math.tanh() も
+Math.asinh(x)    // 逆双曲線正弦関数 Math.acosh() 、 Math.atanh() も
+
+// ES6 の Number には、以下のようなプロパティも定義されている
+Number.parseInt()       // グローバルな parseInt() 関数と同じ
+Number.parseFloat()     // グローバルな parseFloat() 関数と同じ
+Number.isNaN(x)         // x が NaN 値かどうかを返す
+Number.isFinite(x)      // x が有限な数値かどうかを返す
+Number.isInteger(x)     // x が整数かどうかを返す
+Number.isSafeInteger(x) // x が -(2**53) から 2**53 までの整数かどうかを返す
+Number.MIN_SAFE_INTEGER // => -(2**53 - 1)
+Number.MAX_SAFE_INTEGER // => 2**53 - 1
+Number.EPSILON          // => 2**-52: 数値間の差異の中で、最小の差異
+
+    </script>
+  </body>
+</html>
