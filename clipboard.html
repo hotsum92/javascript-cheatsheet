@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>clipboard</title>
+  </head>
+  <body>
+    <h1>clipboard</h1>
+    <script>
+// you need to allow clipboard access in the browser
+const clipboard = navigator.clipboard;
+
+clipboard.readText()
+  .then(text => {
+    console.log('Pasted content: ', text);
+  })
+  .catch(err => {
+    console.error('Failed to read clipboard contents: ', err);
+  });
+
+clipboard.writeText('Hello, clipboard')
+  .then(() => {
+    console.log('Text successfully copied to clipboard');
+  })
+  .catch(err => {
+    console.error('Failed to copy text: ', err);
+  });
+
+    </script>
+  </body>
+</html>
