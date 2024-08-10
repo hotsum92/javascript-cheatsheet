@@ -86,52 +86,12 @@ text.match(pattern)            // => ["1", "2", "3"]: すべてのマッチを�
 text.replace(pattern, "#")     // => "testing: #, #, #"
 text.split(/\D+/)              // => ["","1","2","3"]: 数字以外の文字で配列に分割。
 
-Number("3") // => 3
-String(false) // => "false": false.toString() でも変換可。
-Boolean([]) // => true
-
-let n = 17;
-let binary = "0b" + n.toString(2); // binary == "0b10001"
-let octal = "0o" + n.toString(8);  // octal == "0o21"
-let hex = "0x" + n.toString(16);   // hex == "0x11"
-
-let n = 123456.789;
-n.toFixed(0) // => "123457"
-n.toFixed(2) // => "123456.79"
-n.toFixed(5) // => "123456.78900"
-n.toExponential(1)// "1.2e+5"
-n.toExponential(3)// "1.235e+5"
-n.toPrecision(4)  // "1.235e+5"
-n.toPrecision(7)  // "123456.8"
-n.toPrecision(10) // "123456.7890"
-
-parseInt("3 blind mice")
-parseFloat(" 3.14 meters")
-parseInt("-12.34")
-parseInt("0xFF")
-parseInt("0xff")
-parseInt("-0XFF")
-parseFloat(".1")
-parseInt("0.1")
-parseInt(".1")
-parseFloat("$72.47")
-
-parseInt("3 blind mice")  // 3
-parseFloat(" 3.14 meters")// 3.14
-parseInt("-12.34")        // -12
-parseInt("0xFF")          // 255
-parseInt("0xff")          // 255
-parseInt("-0XFF")         // -255
-parseFloat(".1")          // 0.1
-parseInt("0.1")           // 0
-parseInt(".1")            // NaN: 整数の場合、「 . 」が先頭にくることはない。
-parseFloat("$72.47")      // NaN: 数値は「 $ 」が先頭にくることはない。
-
-parseInt("11", 2)  // 3: (1*2 + 1)
-parseInt("ff", 16) // 255: (15*16 + 15)
-parseInt("zz", 36) // 1295: (35*36 + 35)
-parseInt("077", 8) // 63: (7*8 + 7)
-parseInt("077", 10)// 77: (7*10 + 7)
+({x: 1, y: 2}).toString() // => "[object Object]"
+[1,2,3].toString() // => "1,2,3"
+(function(x) { f(x); }).toString() // => "function(x) { f(x); }"
+/\d+/g.toString() // => "/\\d+/g"
+let d = new Date(2020,0,1);
+d.toString() // => "Wed Jan 01 2020 00:00:00 GMT-0800 (Pacific Standard Time)"
 
     </script>
   </body>
