@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>typed-array</title>
+  </head>
+  <body>
+    <h1>typed-array</h1>
+    <script>
+let bytes = new Uint8Array(1024);   // 1024 バイト。
+let matrix = new Float64Array(9);   // 3x3 の行列。
+let point = new Int16Array(3);      // 3D 空間の点。
+let rgba = new Uint8ClampedArray(4);// 4 バイトの RGBA のピクセル値。
+let sudoku = new Int8Array(81);     // 9x9 の数独。
+let white = Uint8ClampedArray.of(255, 255, 255, 0); // RGBA 形式の不透明な白。
+let ints = Uint32Array.from(white); // 同じ 4 バイト。ただし 32 ビット整数として扱う。
+// 浮動小数点数は整数に切り捨てられる。大きな整数は 8 ビットに切り捨てられる。
+Uint8Array.of(1.23, 2.99, 45000) // => new Uint8Array([1, 2, 200])
+
+// ArrayBufferはそのままでは読み書き不可。TypedArrayを介して使う。
+let buffer = new ArrayBuffer(1024*1024);
+buffer.byteLength // => 1024*1024; 1M バイトのメモリ。
+
+// 第２引数はオフセット。第３引数は長さ。
+let asbytes = new Uint8Array(buffer);         // バイトとして扱う。
+let asints = new Int32Array(buffer);          // 32 ビット符号あり整数として扱う。
+let lastK = new Uint8Array(buffer, 1023*1024);// 最後の 1 キロバイトをバイトとして扱う。
+let ints2 = new Int32Array(buffer, 1024, 256);// 2 番目の 1 キロバイトを 256 個の整数として扱う。
+
+// 実行速度が 4 倍速くなり、メモリ使用量は 8 分の 1
+let ints = new Int16Array(10);   // 10 個の short 型の整数。
+ints.fill(3).map(x=>x*x).join("")// => "9999999999"
+// push(),pop(),unshift(),shift(),splice() などの配列の長さを変更するメソッドは、型付き配列では実装されていない。
+// sort() 、 reverse() 、 fill() など、配列の長さを変更せずに、配列の内容を変更するメソッドは実装されています。
+// 新しい配列でmap() や slice() などのメソッドは、同じ型の型付き配列を返します。
+
+// 独自メソッド
+// set
+let bytes = new Uint8Array(1024);// 1K バイトのバッファ。
+let pattern = new Uint8Array([0,1,2,3]); // 4 バイトの配列。
+bytes.set(pattern); // ほかのバイト配列の先頭にコピーする。
+bytes.set(pattern, 4); // オフセットを変更して、再度コピーする。
+bytes.set([0,1,2,3], 8); // 通常の配列から直接値をコピーする。
+bytes.slice(0, 12) // => new Uint8Array([0,1,2,3,0,1,2,3,0,1,2,3])
+
+// subarray
+let ints = new Int16Array([0,1,2,3,4,5,6,7,8,9]);
+let last3 = ints.subarray(ints.length-3, ints.length);
+last3[0] // => 7: ints[7] と同じ。
+// slice() と違い、subarray() は元の配列と同じバッファを共有する。
+
+// 配下のバッファに関係するプロパティ
+last3.buffer                // 型付き配列用の ArrayBuffer オブジェクト。
+last3.buffer === ints.buffer// => true: 両方とも同じバッファに対するビュー。
+last3.byteOffset            // => 14: このビューはバッファの 14 バイト目から始まる。
+last3.byteLength            // => 6: このビューの長さは 6 バイト（ 3 個の 16 ビット整数）。
+last3.buffer.byteLength     // => 20: ただし、その下にあるバッファは 20 バイト。
+
+// もしも、整数 0x00000001 がメモリ上で 01 00 00 00 と配置されるのであれば、
+// リトルエンディアンのシステム。ビッグエンディアンのシステムであれば、
+// 00 00 00 01 というバイト列になる。
+let littleEndian = new Int8Array(new Int32Array([1]).buffer)[0] === 1;
+
+// バイナリデータが入ったバイト型の型付き配列を処理するものとする。
+// DataView オブジェクトを作成することで、このバイト列から柔軟に
+// 値を読み書きできる。
+let view = new DataView(bytes.buffer,
+bytes.byteOffset,
+bytes.byteLength);
+let int = view.getInt32(0);
+// 0 バイト目からビッグエンディアンの符号付き整数を読む。
+int = view.getInt32(4, false); // 次の整数もビッグエンディアン。
+int = view.getUint32(8, true); // 次の整数はリトルエンディアンで、符号なし。
+view.setUint32(8, int, false); // ビッグエンディアン形式で書き戻す。
+
+    </script>
+  </body>
+</html>

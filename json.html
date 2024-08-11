@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>json</title>
+  </head>
+  <body>
+    <h1>json</h1>
+    <script>
+let o = {s: "", n: 0, a: [true, false, null]};
+let s = JSON.jsonify(o); // s == '{"s":"","n":0,"a":[true,false,null]}'
+let copy = JSON.parse(s); // copy == {s: "", n: 0, a: [true, false, null]}
+
+// シリアライズ可能なオブジェクトや配列の深いコピーを作る。
+function deepcopy(o) {
+return JSON.parse(JSON.stringify(o));
+}
+
+    </script>
+  </body>
+</html>

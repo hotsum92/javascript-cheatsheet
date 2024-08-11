@@ -10,6 +10,31 @@ let timestamp = Date.now();  // 現在時刻のタイムスタンプ（数値）
 let now = new Date();        // 現在時刻の Date オブジェクト
 let ms = now.getTime();      // ミリ秒単位のタイムスタンプに変換
 let iso = now.toISOString(); // 標準形式の文字列に変換
+let epoch = new Date(0); // 1970 年 1 月 1 日の真夜中（ GMT ）
+
+let century = new Date(2100,        //2100 年
+                        0,          //1 月
+                        1,          //1 日
+                        2, 3, 4, 5);//02:03:04.005, ローカルタイム
+
+let d = new Date(); // 現在時刻から始める。
+d.setFullYear(d.getFullYear() + 1); // 翌年。
+d.setTime(d.getTime() + 30000); // 30 秒後。
+
+let startTime = Date.now();
+// 時間のかかる処理を行う。
+let endTime = Date.now();
+console.log(`Spline reticulation took ${endTime - startTime}ms.`);
+
+let d = new Date();
+d.setMonth(d.getMonth() + 3, d.getDate() + 14);
+
+let d = new Date(2020, 0, 1, 17, 10, 30); // 2020 年 1 月 1 日 午後 5:10:30
+d.toString() // => "Wed Jan 01 2020 17:10:30 GMT-0800 (Pacific Standard Time)"
+d.toUTCString() // => "Thu, 02 Jan 2020 01:10:30 GMT"
+d.toLocaleDateString() // => "1/1/2020": 'en-US' ロケール。
+d.toLocaleTimeString() // => "5:10:30 PM": 'en-US' ロケール。
+d.toISOString() // => "2020-01-02T01:10:30.000Z"
 
     </script>
   </body>

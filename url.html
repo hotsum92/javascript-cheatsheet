@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>string</title>
+  </head>
+  <body>
+    <h1>string</h1>
+    <script>
+let url = new URL("https://example.com:8000/path/name?q=term#fragment");
+url.href // => "https://example.com:8000/path/name?q=term#fragment"
+url.origin // => "https://example.com:8000"
+url.protocol // => "https:"
+url.host // => "example.com:8000"
+url.hostname // => "example.com"
+url.port // => "8000"
+url.pathname // => "/path/name"
+url.search // => "?q=term"
+url.hash // => "#fragment"
+url.searchParams.set("opts", "y");
+url.searchParams.delete("opts");
+
+let url = new URL("http://example.com");
+let params = new URLSearchParams();
+params.append("q", "term");
+params.append("opts", "exact");
+params.toString() // => "q=term&opts=exact"
+url.search = params;
+url.href // => "http://example.com/?q=term&opts=exact"
+    </script>
+  </body>
+</html>

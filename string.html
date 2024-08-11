@@ -83,6 +83,7 @@ let pattern = /\d+/g;          // 1 個以上の数字列にすべてマッチ�
 pattern.test(text)             // => true: マッチする部分が存在する。
 text.search(pattern)           // => 9: 最初にマッチした文字の位置。
 text.match(pattern)            // => ["1", "2", "3"]: すべてのマッチを含む配列。
+text.matchAll(pattern)         // => イテレータオブジェクト: すべてのマッチを含むイテレータ。
 text.replace(pattern, "#")     // => "testing: #, #, #"
 text.split(/\D+/)              // => ["","1","2","3"]: 数字以外の文字で配列に分割。
 
@@ -92,6 +93,38 @@ text.split(/\D+/)              // => ["","1","2","3"]: 数字以外の文字で�
 /\d+/g.toString() // => "/\\d+/g"
 let d = new Date(2020,0,1);
 d.toString() // => "Wed Jan 01 2020 00:00:00 GMT-0800 (Pacific Standard Time)"
+
+// URL を解析するための簡略化した正規表現。
+let url = /(\w+):\/\/([\w.]+)\/(\S*)/;
+let text = "Visit my blog at http://www.example.com/~david";
+let match = text.match(url);
+let fullurl, protocol, host, path;
+if (match !== null) {
+  fullurl = match[0]; // fullurl == "http://www.example.com/~david"
+  protocol = match[1]; // protocol == "http"
+  host = match[2]; // host == "www.example.com"
+  path = match[3]; // path == "~david"
+}
+
+let url = /(?<protocol>\w+):\/\/(?<host>[\w.]+)\/(?<path>\S*)/;
+let text = "Visit my blog at http://www.example.com/~david";
+let match = text.match(url);
+match[0] // => "http://www.example.com/~david"
+match.input // => text
+match.index // => 17
+match.groups.protocol // => "http"
+match.groups.host // => "www.example.com"
+match.groups.path // => "~david"
+
+"123,456,789".split(",") // => ["123", "456", "789"]
+"1, 2, 3,\n4, 5".split(/\s*,\s*/) // => ["1", "2", "3", "4", "5"]
+
+// 文字列から 5 桁の数字をすべて検索する。
+//「 \\ 」が使用されていることに注意。
+var zipcode = new RegExp("\\d{5}", "g");
+
+let exactMatch = /JavaScript/;
+let caseInsensitive = new RegExp(exactMatch, "i");
 
     </script>
   </body>
