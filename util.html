@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>array</title>
+  </head>
+  <body>
+    <h1>array</h1>
+    <script>
+// この関数は関数を引数にとり、ラップされたバージョンを返す。
+function timed(f) {
+  return function(...args) { // 引数を残余パラメータ配列に集める。
+    console.log(`Entering function ${f.name}`);
+    let startTime = Date.now();
+    try {
+      // 引数をすべてラップされた関数に渡す。
+      return f(...args); // 引数を再度展開する。
+    }
+    finally {
+      // 戻り値を返す前に、経過時間を出力する。
+      console.log(`Exiting ${f.name} after ${Date.now()-startTime}ms`);
+    }
+  };
+}
+// 1 から n までの数値の合計を計算する。
+function benchmark(n) {
+  let sum = 0;
+  for(let i = 1; i <= n; i++) sum += i;
+  return sum;
+}
+// 関数をテストするために、経過時間を出力する関数を呼び出す。
+timed(benchmark)(1000000) // => 500000500000; これが合計値。
+
+// オブジェクト o のメソッド m を置き換えて、元のメソッドを呼び出す前と
+// 呼び出した後のメッセージをログに残すようにする。
+function trace(o, m) {
+  let original = o[m];
+  // 元のメソッドをクロージャ中に保存する。
+  o[m] = function(...args) { // ここで新しいメソッドを定義する。
+    console.log(new Date(), "Entering:", m);
+    // メッセージをログに残す。
+    let result = original.apply(this, args);
+    // 元のメソッドを呼び出す。
+    console.log(new Date(), "Exiting:", m);
+    // メッセージをログに残す。
+    return result;
+    // 結果を返す。
+  };
+}
+    </script>
+  </body>
+</html>
