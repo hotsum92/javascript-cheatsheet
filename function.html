@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>array</title>
+  </head>
+  <body>
+    <h1>array</h1>
+    <script>
+let o = {
+  m: function() {
+    let self = this;
+    this === o
+    f();
+
+    function f() {
+      this === o
+      self === o
+    }
+let o = {           //オブジェクト o 。
+  m: function() {   //オブジェクトのメソッド m 。
+    let self = this;//this の値を変数に保存する。
+    this === o      //=> true: this はオブジェクト o 。
+    f();            //関数 f() をここで呼び出す。
+
+    function f() {  // 入れ子型の関数 f 。
+      this === o    // => false: this はグローバルまたは undefined 。
+      self === o    // => true: self は外側の関数の this の値。
+    }
+  }
+};
+o.m(); // オブジェクト o のメソッド m を呼び出す。
+
+// アロー関数は this を継承する。
+// それ以外は、strict モードでない場合、this はグローバルオブジェクトになる。
+//const f = () => {
+//  this === o // アロー関数は this を継承するので true になる。
+//};
+// const f =(function() {
+//   this === o // bind() は this を固定するので true になる。
+// }).bind(o);
+
+
+// 関数オブジェクトの counter プロパティを初期化する。
+// 関数宣言は巻き上げられるので、
+// 関数宣言より前にこの代入文を書いても問題ない。
+uniqueInteger.counter = 0;
+
+// 呼び出されるたびに毎回異なる整数を返す関数。
+// 自分自身のプロパティを使って、返した値の次の値を保存しておく。
+function uniqueInteger() {
+  return uniqueInteger.counter++; // counter プロパティをインクリメントして返す。
+}
+uniqueInteger() // => 0
+uniqueInteger() // => 1
+
+// 階乗を計算し、結果を関数自身のプロパティにキャッシュする。
+function factorial(n) {
+  if (Number.isInteger(n) && n > 0) {
+    // 正の整数のみ。
+    if (!(n in factorial)) {
+      // キャッシュされた結果がなければ、
+      factorial[n] = n * factorial(n-1); // 計算し、結果をキャッシュする。
+    }
+  return factorial[n];
+  // キャッシュしておいた結果を返す。
+  } else {
+    return NaN;
+    // 入力が不正。
+  }
+}
+factorial[1] = 1;
+// キャッシュを初期化し、 1 のときの値を保持する。
+factorial(6)
+// => 720
+factorial[5]
+// => 120; 前回の呼び出しでこの値をキャッシュしている。
+
+(function() {
+  // chunkNamespace() 関数を匿名関数として書き直す。
+  // コードをここに記述する。
+  // この関数は、このスクリプトの他の部分からはアクセスできない。
+}()); // 関数リテラルを定義し、すぐに呼び出す。
+
+let uniqueInteger = (function() {
+  // 定義して呼び出す。
+  let counter = 0;
+  // 次の関数のプライベートな状態。
+  return function() { return counter++; };
+}());
+uniqueInteger() // => 0
+uniqueInteger() // => 1
+
+    </script>
+  </body>
+</html>

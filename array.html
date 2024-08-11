@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <title>array</title>
+  </head>
+  <body>
+    <h1>array</h1>
+    <script>
+let letters = [..."Hello world"]; // 文字の配列。
+let string = "";
+for(let letter of letters) {
+  string += letter;
+}
+
+let everyother = "";
+for(let [index, letter] of letters.entries()) {
+  f (index % 2 === 0) everyother += letter; // 偶数のインデックスの文字。
+}
+
+let data = [1,2,3,4,5], sum = 0;
+// 配列の要素の総計を計算する。
+data.forEach(value => { sum += value; }); // sum == 15
+
+let a = [1, 2, 3];
+a.map(x => x*x) // => [1, 4, 9]: この関数は、引数として渡された x に対して、 x*x を返す。
+
+let a = [5, 4, 3, 2, 1];
+a.filter(x => x < 3)
+a.filter((x,i) => i%2 === 0)
+// => [2, 1]; 3 未満の値。
+// => [5, 3, 1]; 偶数インデックスの値。
+
+let a = [1,2,3,4,5];
+a.findIndex(x => x === 3)// 2; 値 3 はインデックス 2 にある。
+a.findIndex(x => x < 0)  // -1; 負数は配列中に存在しない。
+a.find(x => x % 5 === 0) // 5: 5 の倍数。
+a.find(x => x % 7 === 0) // undefined: 配列中には 7 の倍数はない。
+
+let a = [1,2,3,4,5];
+a.every(x => x < 10)     // => true: すべての値は 10 未満。
+a.every(x => x % 2 === 0)// => false: すべての値が偶数というわけではない。
+
+let a = [1,2,3,4,5];
+a.some(x => x%2===0)// => true; a には偶数の要素がある。
+a.some(isNaN)       // => false; a には数値以外の要素はない。
+
+let a = [1,2,3,4,5];
+a.reduce((x,y) => x+y, 0)         // => 15; 値の合計。
+a.reduce((x,y) => x*y, 1)         // => 120; 値の積。
+a.reduce((x,y) => (x > y) ? x : y)// => 5; 最大値。初期値は 0 ではなく、最初の要素。空の配列の場合は例外。
+
+// / 2^(3^4) を計算する。べき乗は右結合性を持つ。
+let a = [2, 3, 4];
+a.reduceRight((acc,val) => Math.pow(val,acc)) // => 2.4178516392292583e+24
+
+[1, [2, 3]].flat()  // => [1, 2, 3]
+[1, [2, [3]]].flat()// => [1, 2, [3]]
+
+let a = [1, [2,[3,[1,[1,[1,[1,[4]]]];
+a.flat(1)// 2, [3, [4]]]
+a.flat(2)// 2, 3, [4]]
+a.flat(3)// 2, 3, 4]
+a.flat(4)// 2, 3, 4]
+
+let phrases = ["hello world", "the definitive guide"];
+let words = phrases.flatMap(phrase => phrase.split(" "));
+words // => ["hello", "world", "the", "definitive", "guide"];
+
+// 非負数を平方根にマップする。
+[-2, -1, 1, 2].flatMap(x => x < 0 ? [] : Math.sqrt(x)) // => [1, 2**0.5]
+
+let a = [1,2,3];
+a.concat(4, 5)        // [1,2,3,4,5]
+a.concat([4,5],[6,7]) // [1,2,3,4,5,6,7]; 配列は展開される。
+a.concat(4, [5,[6,7]])// [1,2,3,4,5,[6,7]]; 入れ子になった
+
+let a = [1,2,3,4,5];
+a.push()  // 末尾に要素を追加する。
+a.pop()   // 末尾の要素を削除して返す。
+a.shift() // 先頭の要素を削除して返す。
+a.unshift() // 先頭に要素を追加する。
+
+let b = []
+b.unshift(1)
+b.unshift(2) // b == [2,1]
+b = []
+b.unshift(1,2) // b == [1,2]
+
+// 第一引数は挿入位置、第二引数は配列の末尾要素
+let a = [1,2,3,4,5];
+a.slice(0,3); // [1,2,3] を返す。
+a.slice(3); // [4,5] を返す。
+a.slice(1,-1); // [2,3,4] を返す。
+a.slice(-3,-2); // [3] を返す。
+
+// 第一引数は位置、第二引数は要素数
+let a = [1,2,3,4,5,6,7,8];
+a.splice(4) // => [5,6,7,8]; a は [1,2,3,4] になる。
+a.splice(1,2) // => [2,3]; a は [1,4] になる。
+a.splice(1,1) // => [4]; a は [1] になる。
+
+let a = new Array(5); // 長さ 5 の空の配列から始める。
+a.fill(0)       // => [0,0,0,0,0]; 配列をゼロに設定する。
+a.fill(9, 1)    // => [0,9,9,9,9]; インデックス 1 以降の要素を 9 に設定する。
+a.fill(8, 2, -1)// => [0,9,8,8,9]; インデックス 2 と 3 を 8 に設定する。
+
+// 第一引数はコピー先の位置、第二引数はコピー元の位置、第三引数はコピー元の位置＋１
+let a = [1,2,3,4,5];
+a.copyWithin(1)      // => [1,1,2,3,4]: 配列要素を 1 つ後にコピーする。
+a.copyWithin(2, 3, 5)// => [1,1,3,4,4]: 最後の 2 つの要素インデック 2 にコピーする。
+a.copyWithin(0, -2)  // => [4,4,3,4,4]: 負数で指定することもできる。
+
+let a = [0,1,2,1,0];
+a.indexOf(1) // => 1: a[1] が 1 。
+a.lastIndexOf(1) // => 3: a[3] が 1 。
+a.indexOf(3)// => -1: 3 という値の要素はない。
+
+let a = [1,true,3,NaN];
+a.includes(true)//true
+a.includes(2)   //false
+a.includes(NaN) //true
+a.indexOf(NaN)  //-1; indexOf では NaN は検索できない。
+
+let a = ["ant", "Bug", "cat", "Dog"];
+a.sort();
+// a == ["Bug","Dog","ant","cat"]; 大文字小文字を区別するソート。
+a.sort(function(s,t) {
+  let a = s.toLowerCase();
+  let b = t.toLowerCase();
+  if (a < b) return -1;
+  if (a > b) return 1;
+  return 0;
+}); // a == ["ant","Bug","cat","Dog"]; 大文字小文字を区別しないソート。
+
+let a = [1,2,3];
+a.reverse(); // a == [3,2,1]
+
+let a = [1, 2, 3];
+a.join()              // => "1,2,3"
+a.join(" ")           // => "1 2 3"
+a.join("")            // => "123"
+let b = new Array(10);// 要素が 1 つも存在しない、長さ 10 の配列。
+b.join("-")           // => "---------": 9 つのハイフンからなる文字列。
+
+// from interable
+Array.from("hello") // => ["h","e","l","l","o"]
+Array.from(new Set(["a", "b", "c"])) // => ["a", "b", "c"]
+new Array(5) // => [undefined, undefined, undefined, undefined, undefined]
+new Array(1,2,3) // => [1,2,3]
+Array.of(1,2,3)     // => [1,2,3]
+Array.isArray([1,2,3]) // => true
+Array.isArray("foo")   // => false
+
+let a = {"0": "a", "1": "b", "2": "c", length: 3};// 配列のようなオブジェクト。
+Array.prototype.join.call(a, "+")                 // => "a+b+c"
+Array.prototype.map.call(a, x => x.toUpperCase()) // => ["A","B","C"]
+Array.prototype.slice.call(a, 0)                  // ["a","b","c"]: 通常の配列にコピー。
+Array.from(a)                                     // ["a","b","c"]: もっと簡単にコピー。
+
+let s = "test";
+s.charAt(0) // => "t"
+s[1] // => "e"
+
+    </script>
+  </body>
+</html>
