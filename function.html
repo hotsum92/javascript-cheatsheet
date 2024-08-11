@@ -92,6 +92,16 @@ console.log({ f: f.toString(), a: a.toString() });
 // f は関数オブジェクト。 o はコンテキストオブジェクト。 1 と 2 は引数。
 //f.call(o, 1, 2);
 //f.apply(o, [1,2]);
+// bind() は新しい関数を返す。
+//f.bind(o)(1, 2);
+
+// カリー化
+// let sum = (x,y) => x + y;    // 2 つの引数の合計を返す。
+// let succ = sum.bind(null, 1);// 第 1 引数を 1 にバインドする。
+// succ(2)                      // => 3: x は 1 にバインドされている。引数 y は 2 になる。
+// function f(y,z) { return this.x + y + z; }
+// let g = f.bind({x: 1}, 2);// this と y をバインドする。
+// g(3) // => 6: this.x は 1 に、 y は 2 にバインド。 z は 3 になる。
 
     </script>
   </body>
