@@ -45,6 +45,23 @@ function trace(o, m) {
     // 結果を返す。
   };
 }
+
+// f をメモ化したバージョンを返す。
+// f に対する引数がすべて異なる文字列表現形式を持つ場合にのみ動作する。
+function memoize(f) {
+  const cache = new Map(); // クロージャ中に保存されるキャッシュ。
+    return function(...args) {
+    // キャッシュのキーとして使うために引数を文字列に変換する。
+    let key = args.length + args.join("+");
+    if (cache.has(key)) {
+      return cache.get(key);
+    } else {
+      let result = f.apply(this, args);
+      cache.set(key, result);
+      return result;
+    }
+  };
+}
     </script>
   </body>
 </html>
