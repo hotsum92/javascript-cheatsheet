@@ -1,0 +1,5 @@
+Open console: Control+Shift+J
+Open Elements tab: Control+Shift+C
+Open Drawer: Esc
+Open Search: Control+Shift+F
+

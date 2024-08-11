@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <title>debug</title>
+  </head>
+  <body>
+    <h1>debug</h1>
+    <script>
+// get class prototype
+Object.getPrototypeOf($0);
+
+// stop event
+$0.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation();})
+
+((() => {
+    const events = ["click", "contextmenu", "dblclick", "mousedown", "mouseenter", "mouseleave", "mousemove",
+        "mouseover", "mouseout", "mouseup", "keydown", "keypress", "keyup", "blur", "change", "focus", "focusin",
+        "focusout", "input", "invalid", "reset", "search", "select", "submit", "drag", "dragend", "dragenter",
+        "dragleave", "dragover", "dragstart", "drop", "copy", "cut", "paste", "mousewheel", "wheel", "touchcancel",
+        "touchend", "touchmove", "touchstart"];
+
+    const handler = event => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        return false;
+    };
+
+    for (let i = 0, l = events.length; i < l; i++) {
+        $0.addEventListener(events[i], handler, true);
+    }
+
+    return () => {
+        for (let i = 0, l = events.length; i < l; i++) {
+            $0.removeEventListener(events[i], handler, true);
+        }
+    };
+})());
+
+const id = window.setInterval(function() {}, Number.MAX_SAFE_INTEGER);
+
+for (let i = 1; i <= id; i++) {
+  window.clearInterval(i);
+}
+
+console.trace()
+
+//debugger;
+//document.addEventListener('input', (event) => {
+//  console.log(event.eventPhase);
+//}, {capture: true});
+
+// イベント削除
+// ボタンをクローンで複製
+//const clonedBtn = btn.cloneNode(true);
+// 元のボタンをクローンで置き換える
+//btn.replaceWith(clonedBtn)
+
+document.querySelectorAll("h1, h2, h3");
+document.querySelector("#sect1")
+
+// h1, h2: select all h1 and h2 elements
+// h1 h2: select all h2 elements that are descendants of an h1 element
+// h1 > h2: select all h2 elements that are children of an h1 element
+// h1 + h2: select all h2 elements that are placed immediately after an h1 element
+// h1 ~ h2: select all h2 elements that are preceded by an h1 element
+// .class: select all elements with the class "class"
+// #id: select the element with the id "id"
+// *: select all elements example: .class *
+// *[name="x"]: select all elements with a name attribute equal to "x"
+
+// href 属性を持つ最近傍の <a> タグを探す。
+//event.target.closest("a[href]");
+
+// e が HTML の見出し要素の場合は true を返す。
+function isHeading(e) {
+return e.matches("h1,h2,h3,h4,h5,h6");
+}
+
+//document.children[0].children[1].parentNode
+//document.firstElementChild.firstElementChild.nextElementSibling
+//childElementCount
+//nextElementSibling
+//previousElementSibling
+
+
+//nodeType
+//nodeName
+//nodeValue
+
+//let spinner = document.querySelector("#spinner");
+//spinner.classList.remove("hidden");
+//spinner.classList.add("animated");
+
+let paragraph = document.createElement("p");// 空の <p> 要素を作成する。
+let emphasis = document.createElement("em");// 空の <em> 要素を作成する。
+emphasis.append("World");                   // <em> 要素にテキストを追加する。
+paragraph.append("Hello ", emphasis, "!");  // <p> にテキストと <em> を追加する。
+paragraph.prepend(" ¡ ");              // さらに、 <p> の先頭にテキストを追加する。
+paragraph.innerHTML                         // => " ¡ Hello <em>World</em>!"
+
+// class="greetings" を持つ見出し要素を探す。
+let greetings = document.querySelector("h2.greetings");
+// 見出しの後に、新しい段落と水平線を挿入する。
+greetings.after(paragraph, document.createElement("hr"));
+
+// この要素の後に段落を挿入していた。しかし、要素の前に
+// 表示されるように要素を移動する。
+greetings.before(paragraph);
+
+// 段落のコピーを作成し、 greetings 要素の後に挿入する。
+greetings.after(paragraph.cloneNode(true));
+
+// ドキュメントから greetings 要素を削除し、 paragraph 要素で
+// 置換する（すでにドキュメント中に挿入されていた場合、
+// paragraph 要素は現在の位置から移動する）
+greetings.replaceWith(paragraph);
+// さらに、 paragraph も削除する。
+paragraph.remove();
+
+function displayAt(tooltip, x, y) {
+  tooltip.style.display = "block";
+  tooltip.style.position = "absolute";
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+}
+
+    </script>
+  </body>
+</html>
